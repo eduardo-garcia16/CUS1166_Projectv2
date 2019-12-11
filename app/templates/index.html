@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Hello, {{ current_user.username }}</h1>
-  <h4>Create a new BudgetBook <a href="{{ url_for('main.new_book') }}">here</a>!
-  {% for book in books %}
-  <p>
-    <h2>{{ book.title }} : {{ book.description }}<h2>
-      <b>Budget:</b> {{ book.revenue }}
-      <b>Expenses:</b>
-      {% for expense in expenses %}
-        {% if expense.book_id == book.id %}
-          {{ expense.expense }}
-        {% endif %}
-      {% endfor %}
-  {% endfor %}
-  </p>
+<center>
+<h1>Hello, {{ current_user.username }}</h1><br>
+    <h2>Welcome to this CUS1166 Project. Here you can <i><b>manage your account Portfolio</b></i> to:</h2></center>
+  <h3>
+    <ul>
+      <li>Create a BudgetBook and list what you plan to spend your money on, and what your estimated budget is.</li>
+      <li>Manage a purchasing list for all your upcoming purchases, as well as distinguish between what you've already purchased and what you must purchase later.</li>
+    </ul>
+  </h3>
+    <br>
+<center>
+{% if current_user.is_anonymous %}
+  <h3><font color="red">In order to begin, you must register an account, or login if you have one already.</font></h3><br>
+{% endif %}
+  <h2> This project is small, but it (hopefully) demonstrates understanding of concepts learned in CUS1166 @ St. John's University </h2>
+  <img src="https://apply-stjohns-edu.cdn.technolutions.net/www/images/StJohns_270x900_96dpi.png" alt="SJULogo">
+</center>
 {% endblock %}

@@ -1,6 +1,6 @@
 from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DecimalField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DecimalField, SelectField
 from wtforms.validators import DataRequired, ValidationError, DataRequired, Email, EqualTo, Length, NumberRange
 from app.models import User
 
@@ -22,14 +22,21 @@ class EditProfileForm(FlaskForm):
 class BookForm(FlaskForm):
     title = StringField('Name your BudgetBook', validators=[DataRequired()])
     description = TextAreaField('Enter BudgetBook description', validators=[Length(min=0, max=120)])
-    revenue = StringField('Enter total budget / revenue', validators=[DataRequired()])
+    revenue = StringField('Enter total budget ($):', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class EditBookForm(FlaskForm):
-    title = StringField('Change BudgetBook Title', validators=[DataRequired()])
-    expense = StringField('Enter new expense', validators=[DataRequired()])
-    submit = SubmitField('Submit new expense')
+    title = StringField('Name your BudgetBook', validators=[DataRequired()])
+    description = TextAreaField('Enter BudgetBook description', validators=[Length(min=0, max=120)])
+    revenue = StringField('Enter total budget ($):', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
-    def __init__(self, original_title, *args, **kwargs):
-        super(EditBookForm, self).__init__(*args, **kwargs)
-        self.original_title = original_title
+class ItemForm(FlaskForm):
+    item = StringField('Enter item', validators=[DataRequired()])
+    purchased = SelectField('Status', choices=[('notpurchased', 'Not Purchased'), ('purchased', 'Purchased')])
+    submit = SubmitField('Submit')
+
+class EditItemForm(FlaskForm):
+    item = StringField('Enter item', validators=[DataRequired()])
+    purchased = SelectField('Status', choices=[('notpurchased', 'Not Purchased'), ('purchased', 'Purchased')])
+    submit = SubmitField('Submit')

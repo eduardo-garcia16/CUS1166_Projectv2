@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Soon to be a great project . . .</h2>
+  <h1>Hello, {{ current_user.username }}</h1>
+  <h4>Create a new BudgetBook <a href="{{ url_for('main.new_book') }}">here</a>!
+  {% for book in books %}
+  <p>
+    <h2>{{ book.title }} : {{ book.description }}<h2>
+      <b>Budget:</b> {{ book.revenue }}
+      <b>Expenses:</b>
+      {% for expense in expenses %}
+        {% if expense.book_id == book.id %}
+          {{ expense.expense }}
+        {% endif %}
+      {% endfor %}
+  {% endfor %}
+  </p>
 {% endblock %}

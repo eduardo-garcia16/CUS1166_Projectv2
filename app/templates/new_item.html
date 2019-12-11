@@ -2,14 +2,14 @@
 {% import "bootstrap/wtf.html"  as wtf %}
 
 {% block title %}
-Edit BudgetBook
+Create a New Item
 {% endblock %}
 
 {% block content %}
-  <h1>Edit BudgetBook</h1>
-<div class="container">
+<h1> Add Item to Purchasing List </h1>
+<div container="container">
   <form action="" method="post">
-      {{ wtf.quick_form(form) }}
+    {{ wtf.quick_form(form) }}
   </form>
 </div>
 {% endblock %}

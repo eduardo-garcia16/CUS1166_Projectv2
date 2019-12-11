@@ -15,9 +15,25 @@
     </tr>
   </table>
   <hr>
-  <p>Welcome to {{ user.username }}'s profile!</p>
+  <center><h1>Welcome to {{ user.username }}'s portfolio!</h1></center>
+  <h2><u>{{ user.username }}'s BudgetBooks:</u></h2>
   {% for book in books %}
-  <h2>{{ book.title }} : {{ book.description }}<h2>
-    <b>Budget:</b> {{ book.revenue }}
+  <a href="{{url_for('main.remove_book',book_id=book.id)}}">[X]</a><h3><b>{{ book.title }}:</b> <i>{{ book.description }}</i><h3>
+    <b>Budget:</b> <i>${{ book.revenue }}</i><br>
+  <a href="{{url_for('main.edit_book',book_id=book.id)}}">Edit <i>{{ book.title }}</i></a>
+    <h1>-------------------------</h1>
+  {% endfor %}
+  <h1>=========================<h1>
+  <h2><u>{{ user.username }}'s Item List:</u></h2>  <a href="{{ url_for('main.new_item') }}"><small>Add More Items</small></a>
+  {% for item in items %}
+  {% if 'notpurchased' == item.purchased %}
+    <h4><a href="{{url_for('main.remove_item', item_id=item.id)}}">[x]</a><b><a href="{{url_for('main.edit_item', item_id=item.id)}}">{{ item.item }}</a>: </b><i>Not Purchased Yet</i>
+  {% endif %}
+  {% endfor %}
+  <br><i><h3>Already Purchased:</h3></i><br>
+  {% for item in items %}
+  {% if 'purchased' == item.purchased %}
+    <h4><a href="{{url_for('main.remove_item', item_id=item.id)}}">[x]</a><b><a href="{{url_for('main.edit_item', item_id=item.id)}}">{{ item.item }}</a></b>
+  {% endif %}
   {% endfor %}
 {% endblock %}

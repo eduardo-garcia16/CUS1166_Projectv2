@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     books = db.relationship('Book', backref='author', lazy='dynamic')
+    items = db.relationship('Item', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -41,3 +42,9 @@ class Book(db.Model):
 
     def __repr__(self):
         return '<Book {}>'.format(self.title)
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    item = db.Column(db.String(300))
+    purchased = db.Column(db.String(20))
+    creator = db.Column(db.Integer, db.ForeignKey('user.username'))
